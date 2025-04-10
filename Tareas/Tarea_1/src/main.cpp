@@ -1,16 +1,22 @@
 #include <iostream>
 #include "../include/Matrix.h"
+#include <limits>
 
 using namespace std;
 
 
 int main() {
-  Matrix mat;
-  cin >> mat;
-  mat(0, 0) = 3;
-  cout << "Se asignó el elemento (0, 0) al valor 3.\n";
-  cout << mat;
-  cout << "Elemento (2, 0): " << mat(2, 0) << endl;
+  string exit;
+  while (true) {
+    cout << "Presiona Enter para ingresar una matriz o 'q' para salir: ";
+    getline(cin, exit);
+    if (exit == "q" || exit == "Q") break;
+    
+    Matrix mat;
+    cin >> mat;
+    cout << "Matriz ingresada:\n" << mat << endl;
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+  }
   return 0;
 }
 
