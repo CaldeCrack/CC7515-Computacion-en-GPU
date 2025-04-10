@@ -1,5 +1,0 @@
-if(EXISTS "/home/caldecrack/Ramos/GPU/Tareas/Tarea_1/build/test/tests[1]_tests.cmake")
-  include("/home/caldecrack/Ramos/GPU/Tareas/Tarea_1/build/test/tests[1]_tests.cmake")
-else()
-  add_test(tests_NOT_BUILT tests_NOT_BUILT)
-endif()
