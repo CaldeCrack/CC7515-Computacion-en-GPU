@@ -1,0 +1,13 @@
+{
+	"InstallScripts" : 
+	[
+		"/home/caldecrack/Ramos/GPU/Tareas/Tarea_1/build/cmake_install.cmake",
+		"/home/caldecrack/Ramos/GPU/Tareas/Tarea_1/build/src/cmake_install.cmake",
+		"/home/caldecrack/Ramos/GPU/Tareas/Tarea_1/build/test/cmake_install.cmake",
+		"/home/caldecrack/Ramos/GPU/Tareas/Tarea_1/build/test/extern/cmake_install.cmake",
+		"/home/caldecrack/Ramos/GPU/Tareas/Tarea_1/build/test/extern/googletest/cmake_install.cmake",
+		"/home/caldecrack/Ramos/GPU/Tareas/Tarea_1/build/test/extern/googletest/googlemock/cmake_install.cmake",
+		"/home/caldecrack/Ramos/GPU/Tareas/Tarea_1/build/test/extern/googletest/googletest/cmake_install.cmake"
+	],
+	"Parallel" : false
+}
