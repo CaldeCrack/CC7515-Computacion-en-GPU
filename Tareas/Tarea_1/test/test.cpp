@@ -116,3 +116,22 @@ TEST(Matrix, Mathematical_operations) {
   EXPECT_EQ(d(1, 1), 154);
 }
 
+TEST(Matrix, Exceptions) {
+  // Constructors
+  EXPECT_THROW(Matrix(-1), logic_error);
+  EXPECT_THROW(Matrix(0), logic_error);
+  EXPECT_THROW(Matrix(-1, 5), logic_error);
+  EXPECT_THROW(Matrix(4, 0), logic_error);
+  EXPECT_THROW(Matrix(0, 0), logic_error);
+
+  // Values
+  Matrix empty;
+  EXPECT_THROW(empty.min(), logic_error);
+  EXPECT_THROW(empty.max(), logic_error);
+
+  // Mathematical operations
+  EXPECT_THROW(matrix_1 *= matrix_2, logic_error);
+  EXPECT_THROW(matrix_2 += matrix_3, logic_error);
+  EXPECT_THROW(matrix_3 -= matrix_0, logic_error);
+}
+

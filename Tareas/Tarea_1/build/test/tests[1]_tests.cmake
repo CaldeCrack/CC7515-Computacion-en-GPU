@@ -10,4 +10,6 @@ add_test([=[Matrix.Booleans]=]  /home/caldecrack/Ramos/GPU/Tareas/Tarea_1/build/
 set_tests_properties([=[Matrix.Booleans]=]  PROPERTIES WORKING_DIRECTORY /home/caldecrack/Ramos/GPU/Tareas/Tarea_1/build/test SKIP_REGULAR_EXPRESSION [==[\[  SKIPPED \]]==])
 add_test([=[Matrix.Mathematical_operations]=]  /home/caldecrack/Ramos/GPU/Tareas/Tarea_1/build/test/tests [==[--gtest_filter=Matrix.Mathematical_operations]==] --gtest_also_run_disabled_tests)
 set_tests_properties([=[Matrix.Mathematical_operations]=]  PROPERTIES WORKING_DIRECTORY /home/caldecrack/Ramos/GPU/Tareas/Tarea_1/build/test SKIP_REGULAR_EXPRESSION [==[\[  SKIPPED \]]==])
-set(  tests_TESTS Matrix.Constructors Matrix.Setters_Gettters Matrix.Dimensions Matrix.Values Matrix.Booleans Matrix.Mathematical_operations)
+add_test([=[Matrix.Exceptions]=]  /home/caldecrack/Ramos/GPU/Tareas/Tarea_1/build/test/tests [==[--gtest_filter=Matrix.Exceptions]==] --gtest_also_run_disabled_tests)
+set_tests_properties([=[Matrix.Exceptions]=]  PROPERTIES WORKING_DIRECTORY /home/caldecrack/Ramos/GPU/Tareas/Tarea_1/build/test SKIP_REGULAR_EXPRESSION [==[\[  SKIPPED \]]==])
+set(  tests_TESTS Matrix.Constructors Matrix.Setters_Gettters Matrix.Dimensions Matrix.Values Matrix.Booleans Matrix.Mathematical_operations Matrix.Exceptions)
