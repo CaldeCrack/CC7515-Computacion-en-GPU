@@ -1,0 +1,25 @@
+Proyecto semestral GPU
+
+Estudiante: Andrés Calderón Guardia
+
+- Tema elegido:
+Se eligió el tema de la generación de terreno utilizando random noise y marching cubes.
+
+- Objetivo con la GPU:
+El objetivo de la GPU en este tema es paralelizar la generación de terreno ya que este método subdivide el espacio en celdas, de modo que se usaría la GPU para separar la ejecución del algoritmo en las distintas divisiones del espacio.
+
+- Motivación:
+La principal motivación que se tiene para haber elegido este tema es el haber visto un par de videos en Youtube en que se realizaba una exploración de este tema para generar terreno de forma procedural en el motor de videojuegos Unity, lo cual resultó ser de alto interés para el estudiante.
+
+- Alcance:
+Como mínimo se espera lograr generar terreno aleatorio en un rectángulo alrededor de la cámara mediante los marching cubes usando la GPU, que posea áreas similares a cuevas para demostrar la ventaja por sobre los mapas de alturas comunmente usados.
+El máximo alcanzable sería lograr modificar en tiempo real este terreno con el mouse, ya sea para agregar terreno o borrar terreno ya generado.
+
+- Bibliografía:
+1. Esquema paso a paso para implementar marching cubes creado por NVIDIA: https://developer.nvidia.com/gpugems/gpugems3/part-i-geometry/chapter-1-generating-complex-procedural-terrains-using-gpu
+2. Paper original sobre este algoritmo: hhttps://dl.acm.org/doi/10.1145/37401.37422
+3. Implementación sencilla: https://paulbourke.net/geometry/polygonise/
+4. Videos de inspiración, servirán para tener una guía más visual de como abordar el tema:
+    a) https://youtu.be/M3iI2l0ltbE?si=2rCD-HzkIj57B52Y
+    b) https://youtu.be/vTMEdHcKgM4?si=D-lWVJy2qntoHj0e
+

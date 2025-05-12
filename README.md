@@ -1,1 +1,2 @@
-# CC7515-Computacion-en-GPU
+# [CC7515] Computacion en GPU
+
