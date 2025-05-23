@@ -63,4 +63,5 @@ CMakeUserPresets.json
 
 *build/
 *.zip
+*.csv
 
