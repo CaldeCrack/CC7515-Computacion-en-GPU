@@ -213,7 +213,7 @@ void experiment(ubyte iterations, int height, int width,
 int main() {
   srand(static_cast<unsigned>(time(nullptr)));
 
-  std::ofstream outfile("serial_results.csv");
+  std::ofstream outfile("serial_benchmark.csv");
   if (!outfile) {
     std::cerr << "Failed to open serial_results.csv for writing.\n";
     return 1;
@@ -229,6 +229,5 @@ int main() {
   }
 
   outfile.close();
-
   return 0;
 }

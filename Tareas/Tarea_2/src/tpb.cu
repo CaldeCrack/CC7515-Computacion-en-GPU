@@ -35,7 +35,7 @@ void runExperiment1D(int iterations, ushort threads, size_t height,
   int blocks = std::min((totalCells + threads - 1) / threads, 32768UL);
   std::vector<double> timings;
 
-  for (ushort i = 0; i < 31; ++i) {
+  for (ushort i = 0; i < 15; ++i) {
     cudaMemcpy(d_lifeDataBuffer, d_lifeData, totalCells * sizeof(ubyte),
                cudaMemcpyDeviceToDevice);
     cudaDeviceSynchronize();
@@ -51,7 +51,7 @@ void runExperiment1D(int iterations, ushort threads, size_t height,
       auto end = std::chrono::high_resolution_clock::now();
 
       duration =
-          std::chrono::duration_cast<std::chrono::nanoseconds>(end - start)
+          std::chrono::duration_cast<std::chrono::microseconds>(end - start)
               .count();
     } else {
       auto start = std::chrono::high_resolution_clock::now();
@@ -60,7 +60,7 @@ void runExperiment1D(int iterations, ushort threads, size_t height,
       auto end = std::chrono::high_resolution_clock::now();
 
       duration =
-          std::chrono::duration_cast<std::chrono::nanoseconds>(end - start)
+          std::chrono::duration_cast<std::chrono::microseconds>(end - start)
               .count();
     }
 
@@ -69,7 +69,7 @@ void runExperiment1D(int iterations, ushort threads, size_t height,
 
   std::sort(timings.begin(), timings.end());
   double medianTime = timings[timings.size() / 2];
-  double cellsPerSecond = (double)(totalCells * iterations) / medianTime * 1e9;
+  double cellsPerSecond = (double)(totalCells * iterations) / medianTime * 1e6;
 
   outfile << title << ',' << width << ',' << height << ',' << totalCells << ','
           << threads << ',' << iterations << ',' << medianTime << ','
@@ -123,14 +123,14 @@ void runExperiment2D(int iterations, ushort threads, size_t height,
     auto end = std::chrono::high_resolution_clock::now();
 
     double duration =
-        std::chrono::duration_cast<std::chrono::nanoseconds>(end - start)
+        std::chrono::duration_cast<std::chrono::microseconds>(end - start)
             .count();
     timings.push_back(duration);
   }
 
   std::sort(timings.begin(), timings.end());
   double medianTime = timings[timings.size() / 2];
-  double cellsPerSecond = (double)(totalCells * iterations) / medianTime * 1e9;
+  double cellsPerSecond = (double)(totalCells * iterations) / medianTime * 1e6;
 
   outfile << title << ',' << width << ',' << height << ',' << totalCells << ','
           << threads << ',' << iterations << ',' << medianTime << ','
@@ -160,7 +160,7 @@ int main() {
   const int iterations = 16;
   const ushort threadOptions[5] = {64, 128, 256, 512, 1024};
   std::ofstream outfile("cuda_benchmark.csv");
-  outfile << "Mode,Width,Height,Length,Threads,Iterations,Time[ns],"
+  outfile << "Mode,Width,Height,Length,Threads,Iterations,Time[μs],"
              "Cells/s\n";
 
   size_t worldWidth = 1ull << 16;
