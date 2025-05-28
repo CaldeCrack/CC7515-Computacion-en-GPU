@@ -163,10 +163,11 @@ int main() {
   outfile << "Mode,Width,Height,Length,Threads,Iterations,Time[μs],"
              "Cells/s\n";
 
-  size_t worldWidth = 1ull << 16;
-
-  for (ushort exp = 4; exp <= 16; ++exp) {
+  size_t worldWidth = 1ull << 15;
+  std::cout << "- Experimentos: \n";
+  for (ushort exp = 4; exp <= 15; ++exp) {
     size_t worldHeight = 1ull << exp;
+    std::cout << "2^15x2^" << exp << " (" << worldWidth * worldHeight << ")\n";
 
     for (ushort threads : threadOptions)
       experiment(iterations, threads, worldHeight, worldWidth, outfile);

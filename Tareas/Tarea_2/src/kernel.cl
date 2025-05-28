@@ -12,9 +12,9 @@ kernel void fillRandomLifeData(global ubyte *lifeData, ulong size, uint seed) {
 }
 
 kernel void simpleLifeKernel(global volatile const ubyte *lifeData,
-                             uint worldWidth, uint worldHeight,
-                             global ubyte *resultLifeData, uint worldSize) {
-  uint index = get_global_id(0);
+                             ulong worldWidth, ulong worldHeight,
+                             global ubyte *resultLifeData, ulong worldSize) {
+  size_t index = get_global_id(0);
 
   if (index >= worldSize)
     return;
@@ -38,9 +38,9 @@ kernel void simpleLifeKernel(global volatile const ubyte *lifeData,
 }
 
 kernel void simpleLifeKernelIfs(global volatile const ubyte *lifeData,
-                                uint worldWidth, uint worldHeight,
-                                global ubyte *resultLifeData, uint worldSize) {
-  uint index = get_global_id(0);
+                                ulong worldWidth, ulong worldHeight,
+                                global ubyte *resultLifeData, ulong worldSize) {
+  size_t index = get_global_id(0);
 
   if (index >= worldSize)
     return;
@@ -79,10 +79,10 @@ kernel void simpleLifeKernelIfs(global volatile const ubyte *lifeData,
 }
 
 kernel void simpleLifeKernel2D(global volatile const ubyte *lifeData,
-                               uint worldWidth, uint worldHeight,
-                               global ubyte *resultLifeData) {
-  uint x = get_global_id(0);
-  uint y = get_global_id(1);
+                               ulong worldWidth, ulong worldHeight,
+                               global ubyte *resultLifeData, ulong worldSize) {
+  size_t x = get_global_id(0);
+  size_t y = get_global_id(1);
 
   if (x >= worldWidth || y >= worldHeight)
     return;
@@ -93,7 +93,7 @@ kernel void simpleLifeKernel2D(global volatile const ubyte *lifeData,
   uint yDown = (y + 1) % worldHeight;
 
 // 2D indexing
-#define IDX(xx, yy) ((yy) * worldWidth + (xx))
+#define IDX(xx, yy) ((size_t)(yy) * (size_t)(worldWidth) + (size_t)(xx))
 
   uint aliveCells = lifeData[IDX(xLeft, yUp)] + lifeData[IDX(x, yUp)] +
                     lifeData[IDX(xRight, yUp)] + lifeData[IDX(xLeft, y)] +
