@@ -79,7 +79,7 @@ void runExperiment(int iterations, ushort threads, size_t height,
       auto end = std::chrono::high_resolution_clock::now();
       duration =
           std::chrono::duration_cast<std::chrono::microseconds>(end - start)
-              .count();
+              .count() / iterations;
     } else if (title == "OpenCL Ifs") {
       auto start = std::chrono::high_resolution_clock::now();
       runSimpleLifeKernel(queue, kernelIfs, d_lifeData, d_lifeDataBuffer, width,
@@ -87,7 +87,7 @@ void runExperiment(int iterations, ushort threads, size_t height,
       auto end = std::chrono::high_resolution_clock::now();
       duration =
           std::chrono::duration_cast<std::chrono::microseconds>(end - start)
-              .count();
+              .count() / iterations;
     } else {
       auto start = std::chrono::high_resolution_clock::now();
       runSimpleLifeKernel(queue, kernel2D, d_lifeData, d_lifeDataBuffer, width,
@@ -95,7 +95,7 @@ void runExperiment(int iterations, ushort threads, size_t height,
       auto end = std::chrono::high_resolution_clock::now();
       duration =
           std::chrono::duration_cast<std::chrono::microseconds>(end - start)
-              .count();
+              .count() / iterations;
     }
 
     timings.push_back(duration);

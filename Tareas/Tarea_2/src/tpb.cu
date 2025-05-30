@@ -52,7 +52,7 @@ void runExperiment1D(int iterations, ushort threads, size_t height,
 
       duration =
           std::chrono::duration_cast<std::chrono::microseconds>(end - start)
-              .count();
+              .count()  / iterations;
     } else {
       auto start = std::chrono::high_resolution_clock::now();
       runSimpleLifeKernelIfs(d_lifeData, d_lifeDataBuffer, width, height,
@@ -61,7 +61,7 @@ void runExperiment1D(int iterations, ushort threads, size_t height,
 
       duration =
           std::chrono::duration_cast<std::chrono::microseconds>(end - start)
-              .count();
+              .count()  / iterations;
     }
 
     timings.push_back(duration);
@@ -124,7 +124,7 @@ void runExperiment2D(int iterations, ushort threads, size_t height,
 
     double duration =
         std::chrono::duration_cast<std::chrono::microseconds>(end - start)
-            .count();
+            .count() / iterations;
     timings.push_back(duration);
   }
 
