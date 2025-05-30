@@ -162,7 +162,7 @@ void runExperiment(ubyte iterations, void (*func)(void), std::ofstream &outfile,
 
   for (int i = 0; i < 5; ++i) {
     auto start = std::chrono::high_resolution_clock::now();
-    for (int i = 0; i < iterations; ++i) {
+    for (int j = 0; j < iterations; ++j) {
       // std::this_thread::sleep_for(std::chrono::milliseconds(50));
       func();
     }
