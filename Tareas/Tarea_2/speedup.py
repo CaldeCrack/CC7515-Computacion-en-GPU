@@ -7,6 +7,7 @@ threads_cuda = {
     "CUDA 2D": 256,
 }
 threads_opencl = {"OpenCL": 128, "OpenCL Ifs": 128, "OpenCL 2D": 128}
+threads_gpu = threads_cuda | threads_opencl
 
 serial_df = pd.read_csv("serial_benchmark.csv")
 cuda_df = pd.read_csv("cuda_benchmark.csv")
@@ -56,7 +57,7 @@ for backend in ["CUDA", "OpenCL"]:
     backend_df = combined_df[combined_df["Backend"] == backend]
     for mode in backend_df["Mode"].unique():
         data = backend_df[backend_df["Mode"] == mode]
-        label = f"{mode}"
+        label = f"{mode} ({threads_gpu[mode]} tpb)"
         plt.plot(
             data["Length"],
             data["Speedup"],
