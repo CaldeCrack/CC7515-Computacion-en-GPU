@@ -4,6 +4,7 @@ import pandas as pd
 threads_cuda = {
     "CUDA": 256,
     "CUDA Ifs": 256,
+    "CUDA 2D": 256,
 }
 threads_opencl = {"OpenCL": 128, "OpenCL Ifs": 128, "OpenCL 2D": 128}
 
@@ -45,6 +46,7 @@ plt.figure(figsize=(12, 7))
 styles = {
     "CUDA": {"color": "blue", "linestyle": "-"},
     "CUDA Ifs": {"color": "blue", "linestyle": "-."},
+    "CUDA 2D": {"color": "blue", "linestyle": ":"},
     "OpenCL": {"color": "green", "linestyle": "-"},
     "OpenCL Ifs": {"color": "green", "linestyle": "-."},
     "OpenCL 2D": {"color": "green", "linestyle": ":"},

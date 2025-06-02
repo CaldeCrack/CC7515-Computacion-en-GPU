@@ -7,7 +7,7 @@ df = pd.read_csv(csv_path)
 
 df["Cells/s (Millions)"] = df["Cells/s"] / 1_000_000_000
 df["Length"] = df["Length"].apply(np.log2)
-thread_config = {"CUDA": 256, "CUDA Ifs": 256}
+thread_config = {"CUDA": 256, "CUDA Ifs": 256, "CUDA 2D": 256}
 
 plt.figure(figsize=(10, 6))
 for mode, threads in thread_config.items():
