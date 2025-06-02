@@ -44,7 +44,7 @@ void runExperiment1D(int iterations, ushort threads, size_t height,
     cudaDeviceSynchronize();
 
     double duration;
-    if (title == "CUDA" || title == "CUDA TPB") { // xd
+    if (title == "CUDA") { // xd
       auto start = std::chrono::high_resolution_clock::now();
       runSimpleLifeKernel(d_lifeData, d_lifeDataBuffer, width, height,
                           iterations, threads);
@@ -154,9 +154,6 @@ void experiment(int iterations, ushort threads, size_t height, size_t width,
   // Ifs case
   runExperiment1D(iterations, threads, height, width, outfile, "CUDA Ifs");
 
-  // TPB case
-  runExperiment1D(iterations, threads + 16, height, width, outfile, "CUDA TPB");
-
   // 2D case
   runExperiment2D(iterations, threads, height, width, outfile, "CUDA 2D");
 }
@@ -172,7 +169,7 @@ int main() {
 
   size_t worldWidth = 1ull << 15;
   std::cout << "- Experimentos: \n";
-  for (ushort exp = 1; exp <= 15; ++exp) {
+  for (ushort exp = 1; exp <= 8; ++exp) {
     size_t worldHeight = 1ull << exp;
     std::cout << "2^15x2^" << exp << " (" << worldWidth * worldHeight << ")\n";
 

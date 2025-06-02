@@ -107,7 +107,6 @@ __global__ void simpleLifeKernel2D(volatile ubyte *const *lifeData,
 void runSimpleLifeKernel(ubyte *&d_lifeData, ubyte *&d_lifeDataBuffer,
                          size_t worldWidth, size_t worldHeight,
                          size_t iterationsCount, ushort threadsCount) {
-  assert((worldWidth * worldHeight) % threadsCount == 0);
   size_t reqBlocksCount = (worldWidth * worldHeight) / threadsCount;
   ushort blocksCount = (ushort)std::min((size_t)32768, reqBlocksCount);
 
@@ -122,7 +121,6 @@ void runSimpleLifeKernel(ubyte *&d_lifeData, ubyte *&d_lifeDataBuffer,
 void runSimpleLifeKernelIfs(ubyte *&d_lifeData, ubyte *&d_lifeDataBuffer,
                             size_t worldWidth, size_t worldHeight,
                             size_t iterationsCount, ushort threadsCount) {
-  assert((worldWidth * worldHeight) % threadsCount == 0);
   size_t reqBlocksCount = (worldWidth * worldHeight) / threadsCount;
   ushort blocksCount = (ushort)std::min((size_t)32768, reqBlocksCount);
 
@@ -137,11 +135,7 @@ void runSimpleLifeKernelIfs(ubyte *&d_lifeData, ubyte *&d_lifeDataBuffer,
 void runSimpleLifeKernel2D(ubyte **&d_lifeData, ubyte **&d_lifeDataBuffer,
                            size_t worldWidth, size_t worldHeight,
                            size_t iterationsCount, ushort threadsCount) {
-  assert((worldWidth * worldHeight) % threadsCount == 0);
-  // size_t reqBlocksCount = (worldWidth * worldHeight) / threadsCount;
-  // ushort blocksCount = (ushort)std::min((size_t)32768, reqBlocksCount);
-
-  dim3 threadsPerBlock(32, 32);
+  dim3 threadsPerBlock(16, 16);
   dim3 numBlocks((worldWidth + threadsPerBlock.x - 1) / threadsPerBlock.x,
                  (worldHeight + threadsPerBlock.y - 1) / threadsPerBlock.y);
 

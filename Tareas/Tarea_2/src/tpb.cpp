@@ -73,7 +73,7 @@ void runExperiment(int iterations, ushort threads, size_t height, size_t width,
     seed++;
 
     double duration;
-    if (title == "OpenCL" || title == "OpenCL TPB") { // xd
+    if (title == "OpenCL") { // xd
       auto start = std::chrono::high_resolution_clock::now();
       runSimpleLifeKernel(queue, kernelDefault, d_lifeData, d_lifeDataBuffer,
                           width, height, totalCells, iterations, threads);
@@ -127,11 +127,6 @@ void experiment(int iterations, ushort threads, size_t height, size_t width,
 
   // Ifs case
   runExperiment(iterations, threads, height, width, outfile, "OpenCL Ifs",
-                context, queue, kernel1D, kernelIfs, kernel2D,
-                fillRandomLifeDataKernel);
-
-  // TPB case
-  runExperiment(iterations, threads + 16, height, width, outfile, "OpenCL TPB",
                 context, queue, kernel1D, kernelIfs, kernel2D,
                 fillRandomLifeDataKernel);
 
