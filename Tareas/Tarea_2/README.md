@@ -1,9 +1,11 @@
+# Tarea 2 - OpenCL y CUDA
+
 ### Estudiante: Andrés Calderón Guardia
 
 ## Dispositivo
-Utilicé
+Utilicé los equipos del toqui que disponen de GPUs de NVIDIA para ejecutar todos los experimentos de esta tarea.
 
-## Prerrequisitos
+## Prerrequisitos experimentación
 No estoy seguro si la tarea funcionará directamente para cualquier dispositivo, me costó la vida lograr que funcionara con OpenCL, supuestamente se deben tener todas las librerías necesarias instaladas tanto para CUDA como para OpenCL según el sistema operativo con el fin de que funcione.
 
 ## Instrucciones de ejecución
@@ -23,13 +25,13 @@ No estoy seguro si la tarea funcionará directamente para cualquier dispositivo,
 
 ## Gráficos
 
-1. Se deben tener todos los archivos `.csv` en la misma carpeta que estos scripts, sin haber cambiado los nombres.
+1. Se deben tener los archivos `.csv` en la misma carpeta que estos scripts, sin haber cambiado los nombres.
 2. Usar ambiente virtual (opcional):
-    
+
     a. Creación: `python3 -m venv .venv`.
 
     b. Activación: (Linux) `source .venv/bin/activate` (Windows) `.venv\Scripts\Activate` (macOS) `no sé`
 
 3. Instalar librerías utilizadas: `pip install -r requirements.txt`.
-4. Ejecutar los distintos scripts según los gráficos que se quieran obtener, estos se guardan en archivos `.png`.
+4. Ejecutar los distintos scripts según los gráficos que se quieran obtener, estos se guardan en archivos `png`.
 
