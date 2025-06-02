@@ -33,8 +33,8 @@ void runSimpleLifeKernel(cl_command_queue queue, cl_kernel kernel,
     clSetKernelArg(kernel, 0, sizeof(cl_mem), &d_lifeData);
     clSetKernelArg(kernel, 3, sizeof(cl_mem), &d_lifeDataBuffer);
 
-    cl_int err = clEnqueueNDRangeKernel(queue, kernel, 2, nullptr, globalSize, localSize, 0,
-                                        nullptr, nullptr);
+    cl_int err = clEnqueueNDRangeKernel(queue, kernel, 2, nullptr, globalSize,
+                                        localSize, 0, nullptr, nullptr);
     CHECK_CL_ERROR(err, "enqueueing kernel 1D");
     std::swap(d_lifeData, d_lifeDataBuffer);
   }
@@ -42,11 +42,11 @@ void runSimpleLifeKernel(cl_command_queue queue, cl_kernel kernel,
   CHECK_CL_ERROR(err, "finish queue 1D");
 }
 
-void runExperiment(int iterations, ushort threads, size_t height,
-                     size_t width, std::ofstream &outfile, std::string title,
-                     cl_context context, cl_command_queue queue,
-                     cl_kernel kernelDefault, cl_kernel kernelIfs,
-                     cl_kernel kernel2D, cl_kernel fillRandomLifeDataKernel) {
+void runExperiment(int iterations, ushort threads, size_t height, size_t width,
+                   std::ofstream &outfile, std::string title,
+                   cl_context context, cl_command_queue queue,
+                   cl_kernel kernelDefault, cl_kernel kernelIfs,
+                   cl_kernel kernel2D, cl_kernel fillRandomLifeDataKernel) {
   size_t totalCells = height * width;
   cl_int err;
 
@@ -63,8 +63,9 @@ void runExperiment(int iterations, ushort threads, size_t height,
   clSetKernelArg(fillRandomLifeDataKernel, 1, sizeof(cl_ulong), &totalCells);
   for (ushort i = 0; i < 15; ++i) {
     clSetKernelArg(fillRandomLifeDataKernel, 2, sizeof(cl_uint), &seed);
-    cl_int err = clEnqueueNDRangeKernel(queue, fillRandomLifeDataKernel, 1, nullptr,
-                                        &globalSize, nullptr, 0, nullptr, nullptr);
+    cl_int err =
+        clEnqueueNDRangeKernel(queue, fillRandomLifeDataKernel, 1, nullptr,
+                               &globalSize, nullptr, 0, nullptr, nullptr);
     CHECK_CL_ERROR(err, "enqueueing kernel random");
 
     clFlush(queue);
@@ -72,30 +73,33 @@ void runExperiment(int iterations, ushort threads, size_t height,
     seed++;
 
     double duration;
-    if (title == "OpenCL") { // xd
+    if (title == "OpenCL" || title == "OpenCL TPB") { // xd
       auto start = std::chrono::high_resolution_clock::now();
       runSimpleLifeKernel(queue, kernelDefault, d_lifeData, d_lifeDataBuffer,
                           width, height, totalCells, iterations, threads);
       auto end = std::chrono::high_resolution_clock::now();
-      duration =
-          std::chrono::duration_cast<std::chrono::microseconds>(end - start)
-              .count() / iterations;
+      duration = (double)std::chrono::duration_cast<std::chrono::microseconds>(
+                     end - start)
+                     .count() /
+                 iterations;
     } else if (title == "OpenCL Ifs") {
       auto start = std::chrono::high_resolution_clock::now();
       runSimpleLifeKernel(queue, kernelIfs, d_lifeData, d_lifeDataBuffer, width,
                           height, totalCells, iterations, threads);
       auto end = std::chrono::high_resolution_clock::now();
-      duration =
-          std::chrono::duration_cast<std::chrono::microseconds>(end - start)
-              .count() / iterations;
+      duration = (double)std::chrono::duration_cast<std::chrono::microseconds>(
+                     end - start)
+                     .count() /
+                 iterations;
     } else {
       auto start = std::chrono::high_resolution_clock::now();
       runSimpleLifeKernel(queue, kernel2D, d_lifeData, d_lifeDataBuffer, width,
                           height, totalCells, iterations, threads);
       auto end = std::chrono::high_resolution_clock::now();
-      duration =
-          std::chrono::duration_cast<std::chrono::microseconds>(end - start)
-              .count() / iterations;
+      duration = (double)std::chrono::duration_cast<std::chrono::microseconds>(
+                     end - start)
+                     .count() /
+                 iterations;
     }
 
     timings.push_back(duration);
@@ -118,12 +122,16 @@ void experiment(int iterations, ushort threads, size_t height, size_t width,
                 cl_command_queue queue, cl_kernel kernel1D, cl_kernel kernelIfs,
                 cl_kernel kernel2D, cl_kernel fillRandomLifeDataKernel) {
   // Optimal case
-  runExperiment(iterations, threads, height, width, outfile, "OpenCL",
-                context, queue, kernel1D, kernelIfs, kernel2D,
-                fillRandomLifeDataKernel);
+  runExperiment(iterations, threads, height, width, outfile, "OpenCL", context,
+                queue, kernel1D, kernelIfs, kernel2D, fillRandomLifeDataKernel);
 
   // Ifs case
   runExperiment(iterations, threads, height, width, outfile, "OpenCL Ifs",
+                context, queue, kernel1D, kernelIfs, kernel2D,
+                fillRandomLifeDataKernel);
+
+  // TPB case
+  runExperiment(iterations, threads + 16, height, width, outfile, "OpenCL TPB",
                 context, queue, kernel1D, kernelIfs, kernel2D,
                 fillRandomLifeDataKernel);
 
@@ -222,7 +230,7 @@ int main() {
   // ====== Run Experiments ======
   std::cout << "- Experimentos: \n";
   size_t worldWidth = 1ull << 15;
-  for (ushort exp = 4; exp <= 15; ++exp) {
+  for (ushort exp = 1; exp <= 15; ++exp) {
     size_t worldHeight = 1ull << exp;
     std::cout << "2^15x2^" << exp << " (" << worldWidth * worldHeight << ")\n";
 

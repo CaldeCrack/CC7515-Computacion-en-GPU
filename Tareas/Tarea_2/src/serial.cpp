@@ -19,29 +19,6 @@ size_t m_worldWidth;
 size_t m_worldHeight;
 size_t m_dataLength;
 
-// void clearTerminal() { std::cout << "\033[2J\033[1;1H"; }
-//
-// void showGame() {
-//   clearTerminal();
-//   std::cout << "   ";
-//   for (int x = 0; x < m_worldWidth; ++x)
-//     std::cout << (x % 10);
-//   std::cout << '\n';
-//
-//   for (size_t y = 0; y < m_worldHeight; ++y) {
-//     std::cout << (y < 10 ? " " : "") << y << " ";
-//
-//     for (size_t x = 0; x < m_worldWidth; ++x) {
-//       int index = y * m_worldWidth + x;
-//       if (m_data[index] == 1)
-//         std::cout << "\033[42m \033[0m";
-//       else
-//         std::cout << "\033[40m \033[0m";
-//     }
-//     std::cout << '\n';
-//   }
-// }
-
 void randomizeWorld() {
   for (int i = 0; i < m_dataLength; ++i)
     m_data[i] = rand() % 2;
@@ -104,7 +81,6 @@ void computeIterationSerial() {
     }
   }
   std::swap(m_data, m_resultData);
-  // showGame();
 }
 
 void computeIterationSerialIfs() {
@@ -162,10 +138,8 @@ void runExperiment(ubyte iterations, void (*func)(void), std::ofstream &outfile,
 
   for (int i = 0; i < 5; ++i) {
     auto start = std::chrono::high_resolution_clock::now();
-    for (int j = 0; j < iterations; ++j) {
-      // std::this_thread::sleep_for(std::chrono::milliseconds(50));
+    for (int j = 0; j < iterations; ++j)
       func();
-    }
     auto end = std::chrono::high_resolution_clock::now();
 
     double timePerIteration =
@@ -220,8 +194,8 @@ int main() {
   }
   outfile << "Mode,Width,Height,Length,Iterations,Time[s],Cells/s\n";
 
-  size_t worldWidth = 1ull << 16;
-  for (ushort exp = 4; exp <= 10; ++exp) {
+  size_t worldWidth = 1ull << 15;
+  for (ushort exp = 1; exp <= 10; ++exp) {
     size_t worldHeight = 1ull << exp;
     std::cout << "Ejecutando 2^16" << "x2^" << exp << " ("
               << worldHeight * worldWidth << ")\n";

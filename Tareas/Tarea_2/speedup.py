@@ -44,20 +44,23 @@ combined_df = pd.concat([cuda_speedup_df, opencl_speedup_df], ignore_index=True)
 plt.figure(figsize=(12, 7))
 styles = {
     "CUDA": {"color": "blue", "linestyle": "-"},
-    "OpenCL": {"color": "green", "linestyle": "--"},
+    "CUDA Ifs": {"color": "blue", "linestyle": "-."},
+    "OpenCL": {"color": "green", "linestyle": "-"},
+    "OpenCL Ifs": {"color": "green", "linestyle": "-."},
+    "OpenCL 2D": {"color": "green", "linestyle": ":"},
 }
 
 for backend in ["CUDA", "OpenCL"]:
     backend_df = combined_df[combined_df["Backend"] == backend]
     for mode in backend_df["Mode"].unique():
         data = backend_df[backend_df["Mode"] == mode]
-        label = f"{backend} - {mode.split()[-1]}"
+        label = f"{mode}"
         plt.plot(
             data["Length"],
             data["Speedup"],
             label=label,
             color=styles[backend]["color"],
-            linestyle=styles[backend]["linestyle"],
+            linestyle=styles[mode]["linestyle"],
             marker="o",
         )
 
