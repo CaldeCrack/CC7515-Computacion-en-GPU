@@ -169,7 +169,7 @@ int main() {
 
   size_t worldWidth = 1ull << 15;
   std::cout << "- Experimentos: \n";
-  for (ushort exp = 1; exp <= 8; ++exp) {
+  for (ushort exp = 1; exp <= 15; ++exp) {
     size_t worldHeight = 1ull << exp;
     std::cout << "2^15x2^" << exp << " (" << worldWidth * worldHeight << ")\n";
 
